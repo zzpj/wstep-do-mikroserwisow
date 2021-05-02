@@ -4,11 +4,15 @@
 * [https://microservices.io/](https://microservices.io/)
 * [12factor.net](https://12factor.net/pl)
 ### Kursy
-*
-*
+* https://app.pluralsight.com/library/courses/getting-started-microservices
+* https://app.pluralsight.com/library/courses/microservices-fundamentals
+* https://app.pluralsight.com/library/courses/building-reactive-microservices (Java demo app)
+* https://app.pluralsight.com/library/courses/microservices-security-fundamentals
+* https://app.pluralsight.com/library/courses/java-microservices-spring-cloud-developing-services
+* https://app.pluralsight.com/library/courses/java-microservices-spring-cloud-coordinating-services
 ### Youtube
-*
-*
+* https://youtu.be/P4iomsHmOW0
+* https://youtu.be/GBTdnfD6s5Q
 
 ## Scenariusz do prezentowanego livecodingu
 
