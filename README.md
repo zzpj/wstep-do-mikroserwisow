@@ -2,7 +2,7 @@
 ## Do poczytania oraz oglądania
 ### Jak zacząć
 * [https://microservices.io/](https://microservices.io/)
-* [12factor.net](https://12factor.net/pl)
+* [12factor.net](https://12factor.net/)
 ### Kursy
 * https://app.pluralsight.com/library/courses/getting-started-microservices
 * https://app.pluralsight.com/library/courses/microservices-fundamentals
