@@ -1,8 +1,15 @@
-# Microservice 2021
-## Przydatne linki
-* link1
-* link2
-* link
+# Mikroserwisy - edycja 2021
+## Do poczytania oraz oglądania
+### Jak zacząć
+* [https://microservices.io/](https://microservices.io/)
+* [12factor.net](https://12factor.net/pl)
+### Kursy
+*
+*
+### Youtube
+*
+*
+
 ## Scenariusz do prezentowanego livecodingu
 
 ### Discovery Server Installation and Configuration
