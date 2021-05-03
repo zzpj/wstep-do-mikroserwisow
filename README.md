@@ -118,7 +118,7 @@ Useful links:
             <artifactId>spring-cloud-starter-netflix-ribbon</artifactId>
         </dependency>
     ```
-1. Add `@RibbonClient` annotation and complete `name` and `configuration` arguments (example:  `@RibbonClient(name = "UserConsumer", configuration = UserManagerConfig.class)`) 
+1. Add `@RibbonClient` annotation and complete `name` and `configuration` arguments (example:  `@RibbonClient(name = "UserConsumer", configuration = UserManagerConfig.class)`) to main class 
 1. Add `@LoadBalanced` annotation to rest template bean
 1. Create and complete configuration class, use proper filtering strategy
     ```java
