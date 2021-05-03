@@ -71,6 +71,12 @@
 1. Prepare webservice providing simple API, it will be useful in next part of exercise
 1. Add `management.endpoints.web.exposure.include=*` property into your  `application.properties` file in order to see how actuators work
 1. Rerun `UserManagerService` and go to `http://localhost:8010/actuator/`. For more info about actuators, refer [documentation](https://docs.spring.io/spring-boot/docs/current/reference/html/production-ready-features.html) 
+1. Add snippet below to display some basic information about our service
+   ```properties
+      info.app.name=${spring.application.name}
+      info.app.description=This is my first spring boot application
+      info.app.version=1.0.0
+  ```
 
 ### Register second client for consuming your web service
 1. Open again [Spring Initializr website](https://start.spring.io/)
