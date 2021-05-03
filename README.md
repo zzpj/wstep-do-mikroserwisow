@@ -76,7 +76,7 @@
       info.app.name=${spring.application.name}
       info.app.description=This is my first spring boot application
       info.app.version=1.0.0
-  ```
+   ```
 
 ### Register second client for consuming your web service
 1. Open again [Spring Initializr website](https://start.spring.io/)
