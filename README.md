@@ -19,7 +19,7 @@
 ### Discovery Server Installation and Configuration
 1. Enter [Spring Initializr website](https://start.spring.io/)
 1. Complete Metadata section
-1. Select following dependencies: Spring Boot Devtools, Lombok, Spring Web, Eureka Server, Spring Boot Actuator
+1. Select following dependencies: Spring Web, Eureka Server, Spring Boot Actuator
 1. Click Generate button and download zipped package.
 1. Unzip package and open generated project in IntelliJ
 1. Open main class with `@SpringBootApplication` annotation
@@ -48,8 +48,8 @@
     <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
         <modelVersion>4.0.0</modelVersion>
-        <groupId>pl.p.lodz.zzpj2020</groupId>
-        <artifactId>Microservices2020-DemoApp2</artifactId>
+        <groupId>pl.p.lodz.zzpj2021</groupId>
+        <artifactId>Microservices2021-DemoApp2</artifactId>
         <version>0.0.1-SNAPSHOT</version>
         <packaging>pom</packaging>
     
