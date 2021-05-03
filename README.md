@@ -139,12 +139,13 @@ Useful links:
     ```
 1. Complete properties file
     ```properties
-    user-manager-service.ribbon.ServerListRefreshInterval=1000
-    user-manager-service.ribbon.eureka.enabled=true
-    
-    eureka.client.healthcheck.enabled=true
-    eureka.instance.leaseRenewalIntervalInSeconds=1
-    eureka.instance.leaseExpirationDurationInSeconds=2
+       USER-SERVICE-EXAMPLE.ribbon.ServerListRefreshInterval=1000
+       USER-SERVICE-EXAMPLE.ribbon.eureka.enabled=false
+       USER-SERVICE-EXAMPLE.ribbon.listOfServers=localhost:8030,localhost:8040
+
+       eureka.client.healthcheck.enabled=true
+       eureka.instance.leaseRenewalIntervalInSeconds=1
+       eureka.instance.leaseExpirationDurationInSeconds=2
     ```
 1. Correct url address in rest template
 1. Verify and go to URL: `http://localhost:8020/info`
