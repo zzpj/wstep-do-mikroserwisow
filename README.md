@@ -150,6 +150,44 @@ Useful links:
 1. Correct url address in rest template
 1. Verify and go to URL: `http://localhost:8020/info`
 
+
+### Spring Cloud Gateway
+1. Open again [Spring Initializr website](https://start.spring.io/)
+1. Complete Metadata section: set Artifact name as `UserGatewayExample`
+1. Select following dependencies: Spring Boot Devtools, Lombok, Spring Web, Eureka Discovery Client, Spring Boot Actuator, Gateway
+1. Click Generate button, download and unzip package
+1. Open  `UserGatewayExample` in IDE
+1. Change application.properties into application.yml
+1. Complete application.yml
+  ```yml
+  spring:
+  application:
+    name: Gateway-Example
+  cloud:
+    gateway:
+      routes:
+        - id: users
+          uri: http://localhost:8040/
+          predicates:
+            - Path=/getAllUsers/**
+
+  server:
+   port: 8060
+
+  eureka:
+   client:
+    serviceUrl:
+      defaultZone: ${EUREKA_URL:http://localhost:8761/eureka/}
+
+  management:
+   endpoints:
+    web:
+      exposure:
+        include: "*"
+  ```
+1. Add annotation `@EnableDiscoveryClient` to main class
+
+
 Useful links:
 [1](https://spring.io/guides/gs/client-side-load-balancing/)
 [2](https://www.baeldung.com/spring-cloud-rest-client-with-netflix-ribbon)
