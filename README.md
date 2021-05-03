@@ -113,10 +113,11 @@ Useful links:
 1. Refresh Eureka Discovery page and determine if both instances of the same service are available 
 1. Add Ribbon dependency to `UserConsumerService`
     ```xml
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-netflix-ribbon</artifactId>
-        </dependency>
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-netflix-ribbon</artifactId>
+			<version>2.2.8.RELEASE</version>
+		</dependency>
     ```
 1. Add `@RibbonClient` annotation and complete `name` and `configuration` arguments (example:  `@RibbonClient(name = "UserConsumer", configuration = UserManagerConfig.class)`) to main class 
 1. Add `@LoadBalanced` annotation to rest template bean
