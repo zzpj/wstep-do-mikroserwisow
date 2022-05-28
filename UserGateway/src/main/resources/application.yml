@@ -1,0 +1,25 @@
+spring:
+  application:
+    name: user-gateway-example
+  cloud:
+    gateway:
+      routes:
+        - id: users
+          uri: http://localhost:8011/
+          predicates:
+            - Path=/getUsers/**
+server:
+  port: 8030
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: ${EUREKA_URL:http://localhost:8761/eureka/}
+
+management:
+  endpoint:
+    web:
+      exposure:
+        include: "*"
+
+

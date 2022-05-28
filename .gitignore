@@ -1,8 +1,26 @@
+# Maven
+target/
+
+# Ignore Gradle GUI config
+gradle-app.setting
+
+# Eclipse
+/.classpath
+/.settings/
+/.project
+/bin/
+
+# IntelliJ
+.idea
+*.iml
+*.ipr
+*.iws
+
+# Misc
+*.log
+
 # Compiled class file
 *.class
-
-# Log file
-*.log
 
 # BlueJ files
 *.ctxt
