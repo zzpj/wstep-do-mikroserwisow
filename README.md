@@ -189,6 +189,16 @@ Useful links:
 1. Add annotation `@EnableDiscoveryClient` to main class
 
 
+### Config Server
+
+```
+/{application}/{profile}[/{label}]
+/{application}-{profile}.yml
+/{label}/{application}-{profile}.yml
+/{application}-{profile}.properties
+/{label}/{application}-{profile}.properties
+```
+
 Useful links:
 [1](https://spring.io/guides/gs/client-side-load-balancing/)
 [2](https://www.baeldung.com/spring-cloud-rest-client-with-netflix-ribbon)
