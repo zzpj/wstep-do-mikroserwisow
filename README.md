@@ -1,4 +1,4 @@
-# Mikroserwisy - edycja 2021
+# Wstęp do architektury mikroserwisowej
 ## Do poczytania oraz oglądania
 ### Jak zacząć
 * [https://microservices.io/](https://microservices.io/)
