@@ -16,7 +16,7 @@
 ### Spring Cloud
 * https://spring.io/projects/spring-cloud
 ### Prezentacja
-* [kilka slajdów z prezentacji z 2020 roku]
+* [kilka slajdów z prezentacji z 2020 roku](https://github.com/zzpj/wstep-do-mikroserwisow/blob/main/ZZPJ2020-microservices.pdf)
 
 
 ## Scenariusz do prezentowanego livecodingu
@@ -81,7 +81,7 @@
     ```
 1. Run `UserConsumerService` application and determine if service has been registered in Eureka Discovery Server by entering `http://localhost:8761/` or using logs.
 1. Prepare `UserConsumer` class which will be a client for prepared in previous section user web service.
-	```
+	```java
 	@Configuration
 	public class WebClientConfig {
 
@@ -92,7 +92,7 @@
 	}
 	```
 
-	```
+	```java
 	@RestController
 	public class UserConsumerController {
 
@@ -136,7 +136,7 @@ Useful links:
 1. Run two (or more) instances using Spring Boot Run Configuration, use Environment > VM Options for setting ports: `-Dserver.port=8011`
 1. Refresh Eureka Discovery page and determine if both instances of the same service are available 
 1. Let's use web flux client
-	```
+	```java
 	@RestController
 	public class UserConsumerController {
 
@@ -155,7 +155,7 @@ Useful links:
 	}	
 	```
 1. While preparing bean of `webClientConfig`, remember about proper autowired filter and add `@LoadBalancerClient` annotation
-	```
+	```java
 	@LoadBalancerClient(name = "user-manager", configuration = UserManagerInstanceConfig.class)
 	public class WebClientConfig {
 
@@ -183,7 +183,7 @@ Useful links:
 	}
 	```
 1. Define implementation for service instance list supplier
-	```
+	```java
 	public class UserManagerSupplier implements ServiceInstanceListSupplier {
 
 		private final String serviceId;
@@ -213,45 +213,37 @@ Useful links:
 1. Verify and go to URL: `http://localhost:8020/getInfo`
 
 
-### Spring Cloud Gateway
-1. Open again [Spring Initializr website](https://start.spring.io/)
-1. Complete Metadata section: set Artifact name as `UserGatewayExample`
-1. Select following dependencies: Spring Boot Devtools, Lombok, Spring Web, Eureka Discovery Client, Spring Boot Actuator, Gateway
-1. Click Generate button, download and unzip package
-1. Open  `UserGatewayExample` in IDE
-1. Change application.properties into application.yml
-1. Complete application.yml
-  ```yml
-  spring:
-  application:
-    name: Gateway-Example
-  cloud:
-    gateway:
-      routes:
-        - id: users
-          uri: http://localhost:8040/
-          predicates:
-            - Path=/getAllUsers/**
-
-  server:
-   port: 8060
-
-  eureka:
-   client:
-    serviceUrl:
-      defaultZone: ${EUREKA_URL:http://localhost:8761/eureka/}
-
-  management:
-   endpoints:
-    web:
-      exposure:
-        include: "*"
-  ```
-1. Add annotation `@EnableDiscoveryClient` to main class
-
-
 ### Config Server
+#### Prepare Config Server Implementation
+1. Open again [Spring Initializr website](https://start.spring.io/)
+1. Complete Metadata section: set Artifact name as `UserConfigServer`
+1. Select following dependencies: Lombok, Spring Web, Eureka Discovery Client, Spring Boot Actuator, Config Server
+1. Click Generate button, download and unzip package
+1. Copy unzipped `UserConfigServer` folder into your project folder
+1. Add follwing annotations: `@EnableEurekaClient` & `@EnableConfigServer` into main class
+1. Add some properties into `application.properties`
+	```properties
+	server.port=8060
+	spring.application.name=user-config-server
 
+	eureka.client.serviceUrl.defaultZone=${EUREKA_URL:http://localhost:8761/eureka/}
+
+	#spring.cloud.config.server.git.uri=https://github.com/zzpj/demo-config-server.git
+	spring.cloud.config.server.git.uri=file://E://ZaawansowanaJava22//demo-config-server-local
+	#spring.cloud.config.server.git.default-label=main
+	spring.cloud.config.server.git.default-label=master
+	spring.cloud.config.server.git.clone-on-start=true
+
+	management.endpoints.web.exposure.include=*
+	```
+1. Run config server project & determine eureka main page
+#### Prepare either local repo or github once
+1. local repo: go to new folder and `git init`
+1. OR create new repo in github
+
+#### Move properties of created services 
+1. 
+1. Remember about following properties naming rules
 ```
 /{application}/{profile}[/{label}]
 /{application}-{profile}.yml
@@ -259,11 +251,3 @@ Useful links:
 /{application}-{profile}.properties
 /{label}/{application}-{profile}.properties
 ```
-
-Useful links:
-[1](https://spring.io/guides/gs/client-side-load-balancing/)
-[2](https://www.baeldung.com/spring-cloud-rest-client-with-netflix-ribbon)
-[3](https://howtodoinjava.com/spring-cloud/spring-boot-ribbon-eureka/)
-[4](https://spring.io/blog/2020/03/25/spring-tips-spring-cloud-loadbalancer)
-
-/EOF
