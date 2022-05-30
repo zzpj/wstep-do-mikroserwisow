@@ -13,6 +13,11 @@
 ### Youtube
 * https://youtu.be/P4iomsHmOW0
 * https://youtu.be/GBTdnfD6s5Q
+### Spring Cloud
+* https://spring.io/projects/spring-cloud
+### Prezentacja
+* [kilka slajdów z prezentacji z 2020 roku]
+
 
 ## Scenariusz do prezentowanego livecodingu
 
@@ -38,28 +43,8 @@
 ### Implementing First Discovery Client
 1. Open again [Spring Initializr website](https://start.spring.io/)
 1. Complete Metadata section: set Artifact name as `UserManagerService`
-1. Select following dependencies: Spring Boot Devtools, Lombok, Spring Web, Eureka Discovery Client, Spring Boot Actuator
+1. Select following dependencies: Lombok, Spring Web, Eureka Discovery Client, Spring Boot Actuator
 1. Click Generate button, download and unzip package
-1. Create new a folder with any name
-1. Create inside it a new `pom.xml` file with first (one for now) child module named `UserManagerService`
-1. Example of such `pom.xml`:
-
-    ```xml
-    <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-        <modelVersion>4.0.0</modelVersion>
-        <groupId>pl.p.lodz.zzpj2021</groupId>
-        <artifactId>Microservices2021-DemoApp2</artifactId>
-        <version>0.0.1-SNAPSHOT</version>
-        <packaging>pom</packaging>
-    
-        <modules>
-            <module>UserManagerService</module>
-        </modules>
-    </project>
-    ```
-1. Copy unzipped `UserManagerService` folder into your project folder
-1. Open IntelliJ using "external" pom.xml and determine if `UserManagerService` is child module
 1. Add annotation `@EnableDiscoveryClient` to main class
 1. Add some properties into `application.properties`
     ```properties
@@ -81,16 +66,9 @@
 ### Register second client for consuming your web service
 1. Open again [Spring Initializr website](https://start.spring.io/)
 1. Complete Metadata section: set Artifact name as `UserConsumerService`
-1. Select following dependencies: Spring Boot Devtools, Lombok, Spring Web, Eureka Discovery Client, Spring Boot Actuator
+1. Select following dependencies: Lombok, Spring Web, Eureka Discovery Client, Spring Boot Actuator, Spring Reactive Web, Cloud LoadBalancer
 1. Click Generate button, download and unzip package
-1. Copy unzipped `UserConsumerService` folder into your project folder and add child module to `pom.xml`
-
-    ```xml
-	   <modules>
-		     <module>UserManagerService</module>
-		     <module>UserConsumerService</module>
-	  </modules>
-    ```
+1. Copy unzipped `UserConsumerService` folder into your project folder
 1. Add annotation `@EnableDiscoveryClient` to main class
 1. Add some properties into `application.properties`
     ```properties
@@ -98,58 +76,141 @@
 
     spring.application.name=user-consumer-service
     eureka.client.serviceUrl.defaultZone=${EUREKA_URL:http://localhost:8761/eureka/}
+	
+	management.endpoints.web.exposure.include=*
     ```
-1. Run `UserConsumerService` Application and determine if service has been registered in Eureka Discovery Server by entering `http://localhost:8761/` or using logs.
+1. Run `UserConsumerService` application and determine if service has been registered in Eureka Discovery Server by entering `http://localhost:8761/` or using logs.
 1. Prepare `UserConsumer` class which will be a client for prepared in previous section user web service.
+	```
+	@Configuration
+	public class WebClientConfig {
+
+		@Bean
+		public WebClient userManagerWebClient() {
+			return WebClient.builder().build();
+		}
+	}
+	```
+
+	```
+	@RestController
+	public class UserConsumerController {
+
+		@Autowired
+		WebClientConfig webClientConfig;
+
+		@GetMapping("/getInfo")
+		public String getUserAppInfo() {
+
+			Mono<String> stringMono = webClientConfig.userManagerWebClient()
+					.get()
+					.uri("http://localhost:8010/info")
+					.retrieve()
+					.bodyToMono(String.class);
+
+			return stringMono.block();
+
+		}
+
+		@GetMapping("/getUsers")
+		public List<?> getUsers() {
+
+			Mono<List> listMono = webClientConfig
+					.userManagerWebClient().get()
+					.uri("http://localhost:8010/users")
+					.retrieve()
+					.bodyToMono(List.class);
+			return listMono.block();
+		}
+	}
+	```
 1. Verify and go to URL: `http://localhost:8020/`
 
 Useful links:
 [1](https://spring.io/guides/gs/service-registration-and-discovery/)
 [2](https://spring.io/guides/tutorials/rest/)
+[3](https://www.baeldung.com/spring-webflux)
 
-### Ribbon as load balancer 
+### Spring Cloud Client Load balancer 
 1. Stop running `UserManagerService` and comment `server.port` properties
 1. Run two (or more) instances using Spring Boot Run Configuration, use Environment > VM Options for setting ports: `-Dserver.port=8011`
 1. Refresh Eureka Discovery page and determine if both instances of the same service are available 
-1. Add Ribbon dependency to `UserConsumerService`
-    ```xml
-		<dependency>
-			<groupId>org.springframework.cloud</groupId>
-			<artifactId>spring-cloud-starter-netflix-ribbon</artifactId>
-			<version>2.2.8.RELEASE</version>
-		</dependency>
-    ```
-1. Add `@RibbonClient` annotation and complete `name` and `configuration` arguments (example:  `@RibbonClient(name = "UserConsumer", configuration = UserManagerConfig.class)`) to main class 
-1. Add `@LoadBalanced` annotation to rest template bean
-1. Create and complete configuration class, use proper filtering strategy
-    ```java
-    public class UserManagerConfig {
-        @Autowired
-        IClientConfig ribbonClientConfig;
-    
-        @Bean
-        public IPing ribbonPing(IClientConfig config) {
-            return new PingUrl();
-        }
-    
-        @Bean
-        public IRule ribbonRule(IClientConfig config) {
-            return new AvailabilityFilteringRule();
-        }
-    }
-    ```
-1. Complete properties file
-    ```properties
-       USER-SERVICE-EXAMPLE.ribbon.ServerListRefreshInterval=1000
-       USER-SERVICE-EXAMPLE.ribbon.eureka.enabled=false
-       USER-SERVICE-EXAMPLE.ribbon.listOfServers=localhost:8030,localhost:8040
+1. Let's use web flux client
+	```
+	@RestController
+	public class UserConsumerController {
 
-       eureka.client.healthcheck.enabled=true
-       eureka.instance.leaseRenewalIntervalInSeconds=1
-       eureka.instance.leaseExpirationDurationInSeconds=2
-    ```
-1. Correct url address in rest template
-1. Verify and go to URL: `http://localhost:8020/info`
+		@Autowired
+		private WebClientConfig webClientConfig;
+
+		@GetMapping("/getInfo")
+		public String getInfoX() {
+			return webClientConfig.webClient()
+					.get()
+					.uri("http://user-manager/info")
+					.retrieve()
+					.bodyToMono(String.class)
+					.block();
+		}
+	}	
+	```
+1. While preparing bean of `webClientConfig`, remember about proper autowired filter and add `@LoadBalancerClient` annotation
+	```
+	@LoadBalancerClient(name = "user-manager", configuration = UserManagerInstanceConfig.class)
+	public class WebClientConfig {
+
+		@Autowired
+		private ReactorLoadBalancerExchangeFilterFunction lbFunction;
+
+		@LoadBalanced
+		@Bean
+		public WebClient webClient() {
+			return WebClient.builder()
+					.filter(lbFunction)
+					.build();
+		}
+	}
+	```
+1. Prepare load balancer config:
+	```
+	@Configuration
+	public class UserManagerInstanceConfig {
+
+		@Bean
+		public ServiceInstanceListSupplier serviceInstanceListSupplier(){
+			return new UserManagerSupplier("user-manager");
+		}
+	}
+	```
+1. Define implementation for service instance list supplier
+	```
+	public class UserManagerSupplier implements ServiceInstanceListSupplier {
+
+		private final String serviceId;
+
+		public UserManagerSupplier(String serviceId) {
+			this.serviceId = serviceId;
+		}
+
+		@Override
+		public String getServiceId() {
+			return serviceId;
+		}
+
+		@Override
+		public Flux<List<ServiceInstance>> get() {
+
+			DefaultServiceInstance int1 = new DefaultServiceInstance(serviceId + "1", serviceId, "localhost", 8011, false);
+			DefaultServiceInstance int2 = new DefaultServiceInstance(serviceId + "2", serviceId, "localhost", 8012, false);
+			DefaultServiceInstance int3 = new DefaultServiceInstance(serviceId + "3", serviceId, "localhost", 8013, false);
+			return Flux.just(Stream.of(int1
+					, int2
+					, int3
+			).collect(Collectors.toList()));
+		}
+	}
+	```
+1. Verify and go to URL: `http://localhost:8020/getInfo`
 
 
 ### Spring Cloud Gateway
