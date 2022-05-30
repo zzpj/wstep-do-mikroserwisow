@@ -243,34 +243,32 @@ Useful links:
 
 #### Move properties of created services 
 1. Complete pom.xml of User Consumer Service
-```xml
-<dependency>
-	<groupId>org.springframework.cloud</groupId>
-	<artifactId>spring-cloud-starter-config</artifactId>
-</dependency>
-```
-
-
-1. Go to `user consumer service` `application.properties` file and add:
-```properties
-spring.config.import=optional:configserver:
-spring.cloud.config.discovery.enabled=true
-spring.cloud.config.discovery.service-id=user-config-server
-spring.cloud.config.name=${spring.application.name}
-spring.cloud.config.profile=dev
-spring.cloud.config.label=main
-spring.cloud.config.fail-fast=true
-```
+	```xml
+	<dependency>
+		<groupId>org.springframework.cloud</groupId>
+		<artifactId>spring-cloud-starter-config</artifactId>
+	</dependency>
+	```
+1. Go to `application.properties` file from "user consumer service" and add:
+	```properties
+	spring.config.import=optional:configserver:
+	spring.cloud.config.discovery.enabled=true
+	spring.cloud.config.discovery.service-id=user-config-server
+	spring.cloud.config.name=${spring.application.name}
+	spring.cloud.config.profile=dev
+	spring.cloud.config.label=main
+	spring.cloud.config.fail-fast=true
+	```
 1. Add properties check with use of `@Value` annotation
-```java
-@Value("${general.message}")
-private String generalMessage;
+	```java
+	@Value("${general.message}")
+	private String generalMessage;
 
-@Value("${com.general.message}")
-private String com_generalMessage;
-```
+	@Value("${com.general.message}")
+	private String com_generalMessage;
+	```
 
-```java
+	```java
     @GetMapping("/getProps")
     public String getPropertiesInfo() {
 
@@ -280,12 +278,12 @@ private String com_generalMessage;
         System.out.println(com_generalMessage);
         return generalMessage + " " + com_generalMessage;
     }
-```
+	```
 1. Remember about following properties naming rules
-```
-/{application}/{profile}[/{label}]
-/{application}-{profile}.yml
-/{label}/{application}-{profile}.yml
-/{application}-{profile}.properties
-/{label}/{application}-{profile}.properties
-```
+	```
+	/{application}/{profile}[/{label}]
+	/{application}-{profile}.yml
+	/{label}/{application}-{profile}.yml
+	/{application}-{profile}.properties
+	/{label}/{application}-{profile}.properties
+	```
