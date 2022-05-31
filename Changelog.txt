@@ -6,6 +6,7 @@ UserConfigServer - rozwiązanie z 2022 roku, pożenienie config-serwera z Eurek�
 LoadBalancerExternalTester - rozwiązanie  2022 roku zastępujące UserConsumerService z 2021 roku z Load balancerem od spring cloud oraz config serwerem
 
 Pomysły na 2023:
-replikacja eureka servera jesli będzie jeszcze wspierany
-odświeżenie spring cloud gateway
-swagger?
+* replikacja eureka servera jesli będzie jeszcze wspierany
+* odświeżenie spring cloud gateway
+* swagger?
+* jms?

@@ -1,6 +1,6 @@
-# Microservice's ecosystem
+# Microservices ecosystem - introduction
 
-## Watch & Read
+## Read & watch
 
 ### How to start
 * [https://microservices.io/](https://microservices.io/)
@@ -15,11 +15,10 @@
 ### Youtube
 * https://youtu.be/P4iomsHmOW0
 * https://youtu.be/GBTdnfD6s5Q
-### Spring Cloud
+### Spring Cloud documentation
 * https://spring.io/projects/spring-cloud
 ### Presentation
-* [Rrezentation from 2020](https://github.com/zzpj/wstep-do-mikroserwisow/blob/main/ZZPJ2020-microservices.pdf)
-
+* [Prezentation from 2020](https://github.com/zzpj/wstep-do-mikroserwisow/blob/main/ZZPJ2020-microservices.pdf)
 
 ## Live coding scenario
 
