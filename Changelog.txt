@@ -1,0 +1,6 @@
+UserConsumerService2021 - rozwiązanie z 2021 roku z użyciem Ribbon jako load balancer'a
+UserModelLib2021 - rozwiązanie z 2021 roku jako modelu do mappowania obiektu User pomiędzy serwisami
+UserManagerService - rozwiązanie z 2020 roku, podobne do tego z 2022 roku
+UserGateway - rozwiązanie z 2021 roku, nie prezentowane w 2022 roku, rozważyć rozbudowę i upgrade do nowszych wersji oraz wykorzystanie reakcyjnego programowania
+UserConfigServer - rozwiązanie z 2022 roku, pożenienie config-serwera z Eureką
+LoadBalancerExternalTester - rozwiązanie  2022 roku zastępujące UserConsumerService z 2021 roku z Load balancerem od spring cloud oraz config serwerem

@@ -1,5 +1,7 @@
-# Wstęp do architektury mikroserwisowej
+# Wstęp do ekosysytemu mikroserwisowego
+
 ## Do poczytania oraz oglądania
+
 ### Jak zacząć
 * [https://microservices.io/](https://microservices.io/)
 * [12factor.net](https://12factor.net/)
@@ -66,7 +68,7 @@
 ### Register second client for consuming your web service
 1. Open again [Spring Initializr website](https://start.spring.io/)
 1. Complete Metadata section: set Artifact name as `UserConsumerService`
-1. Select following dependencies: Lombok, Spring Web, Eureka Discovery Client, Spring Boot Actuator, Spring Reactive Web, Cloud LoadBalancer
+1. Select following dependencies: Lombok, Spring Web, Eureka Discovery Client, Spring Boot Actuator, Spring Reactive Web, Cloud LoadBalancer*, Config Client* (*-future usage)
 1. Click Generate button, download and unzip package
 1. Copy unzipped `UserConsumerService` folder into your project folder
 1. Add annotation `@EnableDiscoveryClient` to main class
@@ -217,6 +219,7 @@ Useful links:
 #### Prepare Config Server Implementation
 1. Open again [Spring Initializr website](https://start.spring.io/)
 1. Complete Metadata section: set Artifact name as `UserConfigServer`
+1. (2022) Select Spring Boot version: 2.7.0 and determine your jdk version (17)
 1. Select following dependencies: Lombok, Spring Web, Eureka Discovery Client, Spring Boot Actuator, Config Server
 1. Click Generate button, download and unzip package
 1. Copy unzipped `UserConfigServer` folder into your project folder
