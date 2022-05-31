@@ -1,11 +1,11 @@
-# Wstęp do ekosysytemu mikroserwisowego
+# Microservice's ecosystem
 
-## Do poczytania oraz oglądania
+## Watch & Read
 
-### Jak zacząć
+### How to start
 * [https://microservices.io/](https://microservices.io/)
 * [12factor.net](https://12factor.net/)
-### Kursy
+### Online courses
 * https://app.pluralsight.com/library/courses/getting-started-microservices
 * https://app.pluralsight.com/library/courses/microservices-fundamentals
 * https://app.pluralsight.com/library/courses/building-reactive-microservices (Java demo app)
@@ -17,16 +17,17 @@
 * https://youtu.be/GBTdnfD6s5Q
 ### Spring Cloud
 * https://spring.io/projects/spring-cloud
-### Prezentacja
-* [kilka slajdów z prezentacji z 2020 roku](https://github.com/zzpj/wstep-do-mikroserwisow/blob/main/ZZPJ2020-microservices.pdf)
+### Presentation
+* [Rrezentation from 2020](https://github.com/zzpj/wstep-do-mikroserwisow/blob/main/ZZPJ2020-microservices.pdf)
 
 
-## Scenariusz do prezentowanego livecodingu
+## Live coding scenario
 
 ### Discovery Server Installation and Configuration
 1. Enter [Spring Initializr website](https://start.spring.io/)
 1. Complete Metadata section
 1. Select following dependencies: Spring Web, Eureka Server, Spring Boot Actuator
+1. (2022) Select Spring Boot version: *2.7.0* and determine your jdk version *(17)*
 1. Click Generate button and download zipped package.
 1. Unzip package and open generated project in IntelliJ
 1. Open main class with `@SpringBootApplication` annotation
@@ -219,22 +220,21 @@ Useful links:
 #### Prepare Config Server Implementation
 1. Open again [Spring Initializr website](https://start.spring.io/)
 1. Complete Metadata section: set Artifact name as `UserConfigServer`
-1. (2022) Select Spring Boot version: 2.7.0 and determine your jdk version (17)
 1. Select following dependencies: Lombok, Spring Web, Eureka Discovery Client, Spring Boot Actuator, Config Server
 1. Click Generate button, download and unzip package
 1. Copy unzipped `UserConfigServer` folder into your project folder
 1. Add follwing annotations: `@EnableEurekaClient` & `@EnableConfigServer` into main class
 1. Add some properties into `application.properties`
 	```properties
-	server.port=8060
+	server.port=8061
 	spring.application.name=user-config-server
 
 	eureka.client.serviceUrl.defaultZone=${EUREKA_URL:http://localhost:8761/eureka/}
 
-	#spring.cloud.config.server.git.uri=https://github.com/zzpj/demo-config-server.git
-	spring.cloud.config.server.git.uri=file://E://ZaawansowanaJava22//demo-config-server-local
-	#spring.cloud.config.server.git.default-label=main
-	spring.cloud.config.server.git.default-label=master
+	spring.cloud.config.server.git.uri=https://github.com/zzpj/demo-config-server.git
+	#spring.cloud.config.server.git.uri=file://E://ZaawansowanaJava22//demo-config-server-local
+	spring.cloud.config.server.git.default-label=main
+	#spring.cloud.config.server.git.default-label=master
 	spring.cloud.config.server.git.clone-on-start=true
 
 	management.endpoints.web.exposure.include=*

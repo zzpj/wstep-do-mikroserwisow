@@ -4,3 +4,8 @@ UserManagerService - rozwiązanie z 2020 roku, podobne do tego z 2022 roku
 UserGateway - rozwiązanie z 2021 roku, nie prezentowane w 2022 roku, rozważyć rozbudowę i upgrade do nowszych wersji oraz wykorzystanie reakcyjnego programowania
 UserConfigServer - rozwiązanie z 2022 roku, pożenienie config-serwera z Eureką
 LoadBalancerExternalTester - rozwiązanie  2022 roku zastępujące UserConsumerService z 2021 roku z Load balancerem od spring cloud oraz config serwerem
+
+Pomysły na 2023:
+replikacja eureka servera jesli będzie jeszcze wspierany
+odświeżenie spring cloud gateway
+swagger?

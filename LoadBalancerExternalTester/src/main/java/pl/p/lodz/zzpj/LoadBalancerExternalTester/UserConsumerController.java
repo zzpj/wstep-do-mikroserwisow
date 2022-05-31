@@ -1,5 +1,6 @@
 package pl.p.lodz.zzpj.LoadBalancerExternalTester;
 
+import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.env.AbstractEnvironment;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
+@Log4j2
 public class UserConsumerController {
 
     @Value("${general.message}")
@@ -36,8 +38,8 @@ public class UserConsumerController {
 
         MutablePropertySources propertySources = ((AbstractEnvironment) environment).getPropertySources();
 
-        System.out.println(generalMessage);
-        System.out.println(com_generalMessage);
+        log.info(generalMessage);
+        log.info(com_generalMessage);
         return generalMessage + " " + com_generalMessage;
     }
 }
